@@ -2,6 +2,7 @@
 #define GRAPHICAL_OBJECT_H
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <stddef.h>
 
 #define NBCLASSES 2
@@ -30,11 +31,11 @@ typedef struct meta_graphical_object {
     void (*set_x)(graphical_object_t* self, int x);
     void (*set_y)(graphical_object_t* self, int y);
 
-    void (*VTABLE_display[NBCLASSES])(graphical_object_t* self);
+    void (*VTABLE_display[NBCLASSES])(graphical_object_t* self, FILE* stream);
     // void (*VTABLE_move[NBCLASSES])(graphical_object_t* self);
     // void (*VTABLE_erase[NBCLASSES])(graphical_object_t* self);
 
-    void (*display)(graphical_object_t* self);
+    void (*display)(graphical_object_t* self, FILE* stream);
     // void (*move)(graphical_object_t* self);
     // void (*erase)(graphical_object_t* self);
 

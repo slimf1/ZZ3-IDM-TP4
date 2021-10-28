@@ -16,7 +16,7 @@ if (CMAKE_COMPILER_IS_GNUCC)
         add_compile_options(-O2)
     endif()
 
-    add_compile_options(-Wall -Wextra -Werror -std=c11)
+    add_compile_options(-Wall -Wextra -Werror -std=gnu11)
 endif()
 
 file(GLOB C_SOURCES src/*.c)

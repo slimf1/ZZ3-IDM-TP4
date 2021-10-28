@@ -48,6 +48,10 @@ int graphical_object_get_instance_count() {
     return _META_GRAPHICAL_OBJECT._instance_count;
 }
 
+void display(graphical_object_t* self, FILE* stream) {
+    _META_GRAPHICAL_OBJECT.VTABLE_display[self->type](self, stream);
+}
+
 /**
  * Initialisation de l'unique méta-objet graphique
  */
@@ -56,6 +60,7 @@ void construct_meta_graphical_object() {
     _META_GRAPHICAL_OBJECT.get_y = &get_y;
     _META_GRAPHICAL_OBJECT.set_x = &set_x;
     _META_GRAPHICAL_OBJECT.set_y = &set_y;
+    _META_GRAPHICAL_OBJECT.display = &display;
     _META_GRAPHICAL_OBJECT.constructor = &graphical_object_constructor;
     _META_GRAPHICAL_OBJECT.get_instance_count = &graphical_object_get_instance_count;
     _META_GRAPHICAL_OBJECT._instance_count = 0;

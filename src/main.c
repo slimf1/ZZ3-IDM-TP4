@@ -27,6 +27,9 @@ int main() {
     printf("x circle=%d\n", circle.my_class->super_meta_class->get_x(&circle.super));
     printf("height=%d\n", rect.my_class->get_height(&rect));
     printf("instnb=%d\n", graph.my_class->get_instance_count());
+
+    circle.super.my_class->display((graphical_object_t*)&circle, stdout);
+    rect.super.my_class->display((graphical_object_t*)&rect, stdout);
     
     return EXIT_SUCCESS;
 }

@@ -30,7 +30,27 @@ TEST(GETTERS_SETTERS, "Test construction and setters logic") {
 
     // Test du bon nombre d'instances
     CHECK(graph.my_class->get_instance_count() == 3);
-}
+};
+
+TEST(DISPLAY, "Test the display method") {
+    circle_t circle;
+    rectangle_t rect;
+    char buffer[100];
+    FILE* stream;
+
+    circle_constructor(&circle);
+    rectangle_constructor(&rect);
+    circle.my_class->set_radius(&circle, 1);
+    rect.my_class->set_height(&rect, 5);
+    rect.my_class->set_width(&rect, 15);
+
+    stream = fmemopen(buffer, sizeof(buffer), "w");
+    rect.super.my_class->display((graphical_object_t*)&rect, stream);
+    circle.super.my_class->display((graphical_object_t*)&circle, stream);
+    fclose(stream);
+
+    CHECK(strcmp(buffer, "<Rectangle w=15 h=5>\n<Circle r=1>\n") == 0);
+};
 
 END_TEST_GROUP(TP4)
 

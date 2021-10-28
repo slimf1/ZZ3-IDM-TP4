@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "circle.h"
 
 // Méta objet unique pour la classe des cercles
@@ -22,6 +23,16 @@ void set_radius(circle_t* self, int radius) {
 }
 
 /**
+ * Affiche un cercle dans un flux
+ * @param self Pointeur de l'objet courant
+ * @param stream Flux dans lequel écrire
+ */
+void display_circle(graphical_object_t* self, FILE* stream) {
+    circle_t* self_circle = (circle_t*)self;
+    fprintf(stream, "<Circle r=%d>\n", self_circle->_radius);
+}
+
+/**
  * Initialisation de l'unique méta-objet graphique
  */
 void construct_meta_circle() {
@@ -29,6 +40,7 @@ void construct_meta_circle() {
     _META_CIRCLE.set_radius = &set_radius;
     _META_CIRCLE.constructor = &circle_constructor;
     _META_CIRCLE.super_meta_class = &_META_GRAPHICAL_OBJECT;
+    _META_CIRCLE.super_meta_class->VTABLE_display[CIRCLE] = &display_circle;
 }
 
 /**
@@ -45,5 +57,6 @@ void circle_constructor(circle_t* self) {
 
     self->_radius = 0;
     self->my_class = &_META_CIRCLE;
+    self->super.type = CIRCLE;
     _META_GRAPHICAL_OBJECT.constructor(&self->super);
 }

@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "rectangle.h"
 
 //  Méta objet unique pour la classe des rectangles
@@ -40,6 +41,17 @@ void set_height(rectangle_t* self, int height) {
 }
 
 /**
+ * Affiche un rectangle dans un flux
+ * @param self Pointeur de l'objet courant
+ * @param stream Flux dans lequel écrire
+ */
+void display_rectangle(graphical_object_t* self, FILE* stream) {
+    rectangle_t* self_rectangle = (rectangle_t*)self;
+    fprintf(stream, "<Rectangle w=%d h=%d>\n", self_rectangle->_width,
+                                               self_rectangle->_height);
+}
+
+/**
  * Initialisation de l'unique méta-objet des rectangles
  */
 void construct_meta_rectangle() {
@@ -49,6 +61,7 @@ void construct_meta_rectangle() {
     _META_RECTANGLE.set_width = &set_width;
     _META_RECTANGLE.constructor = &rectangle_constructor;
     _META_RECTANGLE.super_meta_class = &_META_GRAPHICAL_OBJECT;
+    _META_RECTANGLE.super_meta_class->VTABLE_display[RECTANGLE] = &display_rectangle;
 }
 
 /**
@@ -66,5 +79,6 @@ void rectangle_constructor(rectangle_t* self) {
     self->_height = 0;
     self->_width = 0;
     self->my_class = &_META_RECTANGLE;
+    self->super.type = RECTANGLE;
     _META_GRAPHICAL_OBJECT.constructor(&self->super);
 }
