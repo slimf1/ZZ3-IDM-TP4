@@ -23,8 +23,7 @@ jobs:
           cmake ..
           make
         
-      - name: List files
-        run: ls -la 
-        
       - name: Run tests
-        run: ./tp4_test
+        run: |
+          cd build
+          ./tp4_test
