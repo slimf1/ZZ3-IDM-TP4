@@ -5,19 +5,15 @@ include_directories(include/)
 
 option(DEBUG "Enable debugging" OFF)
 
+
 if (DEBUG)
     add_definitions(-DDEBUG)
+    add_compile_options(-g)
+else()
+    add_compile_options(-O2)
 endif()
 
-if (CMAKE_COMPILER_IS_GNUCC)
-    if (DEBUG)
-        add_compile_options(-g)
-    else()
-        add_compile_options(-O2)
-    endif()
-
-    add_compile_options(-Wall -Wextra -Werror -std=gnu11)
-endif()
+add_compile_options(-Wall -Wextra -Werror -std=gnu11)
 
 file(GLOB C_SOURCES src/*.c)
 list(REMOVE_ITEM C_SOURCES "${CMAKE_SOURCE_DIR}/src/main.c")

@@ -52,7 +52,11 @@ void display(graphical_object_t* self, FILE* stream) {
     _META_GRAPHICAL_OBJECT.VTABLE_display[self->type](self, stream);
 }
 
-/**
+void display_graphical_object(graphical_object_t* self, FILE* stream) {
+    fprintf(stream, "<GraphicalObject x=%d y=%d>\n", self->_x, self->_y);
+}
+
+/*
  * Initialisation de l'unique méta-objet graphique
  */
 void construct_meta_graphical_object() {
@@ -64,6 +68,7 @@ void construct_meta_graphical_object() {
     _META_GRAPHICAL_OBJECT.constructor = &graphical_object_constructor;
     _META_GRAPHICAL_OBJECT.get_instance_count = &graphical_object_get_instance_count;
     _META_GRAPHICAL_OBJECT._instance_count = 0;
+    _META_GRAPHICAL_OBJECT.VTABLE_display[GRAPHICAL_OBJECT] = &display_graphical_object;
 }
 
 /**
@@ -78,5 +83,6 @@ void graphical_object_constructor(graphical_object_t* self) {
     _META_GRAPHICAL_OBJECT._instance_count++;
     self->_x = 0;
     self->_y = 0;
+    self->type = GRAPHICAL_OBJECT;
     self->my_class = &_META_GRAPHICAL_OBJECT;
 }

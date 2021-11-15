@@ -35,11 +35,14 @@ TEST(GETTERS_SETTERS, "Test construction and setters logic") {
 TEST(DISPLAY, "Test the display method") {
     circle_t circle;
     rectangle_t rect;
+    graphical_object_t graph;
     char buffer[100];
     FILE* stream;
 
     circle_constructor(&circle);
     rectangle_constructor(&rect);
+    graphical_object_constructor(&graph);
+    graph.my_class->set_x(&graph, 2);
     circle.my_class->set_radius(&circle, 1);
     rect.my_class->set_height(&rect, 5);
     rect.my_class->set_width(&rect, 15);
@@ -47,9 +50,11 @@ TEST(DISPLAY, "Test the display method") {
     stream = fmemopen(buffer, sizeof(buffer), "w");
     rect.super.my_class->display((graphical_object_t*)&rect, stream);
     circle.super.my_class->display((graphical_object_t*)&circle, stream);
+    graph.my_class->display(&graph, stream);
     fclose(stream);
 
-    CHECK(strcmp(buffer, "<Rectangle w=15 h=5>\n<Circle r=1>\n") == 0);
+    printf("test: %s \n", buffer);
+    CHECK(strcmp(buffer, "<Rectangle w=15 h=5>\n<Circle r=1>\n<GraphicalObject x=2 y=0>\n") == 0);
 };
 
 END_TEST_GROUP(TP4)

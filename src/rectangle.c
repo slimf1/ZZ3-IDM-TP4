@@ -72,13 +72,12 @@ void rectangle_constructor(rectangle_t* self) {
     if (_META_GRAPHICAL_OBJECT.constructor == NULL) {
         construct_meta_graphical_object();
     }
+    _META_GRAPHICAL_OBJECT.constructor(&self->super);
     if (_META_RECTANGLE.constructor == NULL) {
         construct_meta_rectangle();
     }
-
     self->_height = 0;
     self->_width = 0;
     self->my_class = &_META_RECTANGLE;
     self->super.type = RECTANGLE;
-    _META_GRAPHICAL_OBJECT.constructor(&self->super);
 }

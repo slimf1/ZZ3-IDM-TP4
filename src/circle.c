@@ -51,12 +51,11 @@ void circle_constructor(circle_t* self) {
     if (_META_GRAPHICAL_OBJECT.constructor == NULL) {
         construct_meta_graphical_object();
     }
+    _META_GRAPHICAL_OBJECT.constructor(&self->super);
     if (_META_CIRCLE.constructor == NULL) {
         construct_meta_circle();
     }
-
     self->_radius = 0;
     self->my_class = &_META_CIRCLE;
     self->super.type = CIRCLE;
-    _META_GRAPHICAL_OBJECT.constructor(&self->super);
 }

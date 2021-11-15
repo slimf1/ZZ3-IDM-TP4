@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stddef.h>
 
-#define NBCLASSES 2
+#define NBCLASSES 3
 typedef enum graphical_object_classes {
     CIRCLE = 0,
     RECTANGLE = 1,
