@@ -16,11 +16,12 @@ endif()
 add_compile_options(-Wall -Wextra -Werror -std=gnu11)
 
 file(GLOB C_SOURCES src/*.c)
-list(REMOVE_ITEM C_SOURCES "${CMAKE_SOURCE_DIR}/src/main.c")
+list(REMOVE_ITEM C_SOURCES "${CMAKE_SOURCE_DIR}/src/main_classes.c")
+list(REMOVE_ITEM C_SOURCES "${CMAKE_SOURCE_DIR}/src/main_stack.c")
 
 add_executable( ${CMAKE_PROJECT_NAME}_main 
     ${C_SOURCES}
-    src/main.c
+    src/main_classes.c
 )
 
 add_executable( ${CMAKE_PROJECT_NAME}_test
@@ -28,6 +29,10 @@ add_executable( ${CMAKE_PROJECT_NAME}_test
     test/teZZt.c
     test/teZZt.h
     test/tests_main.c
+)
+
+add_executable( ${CMAKE_PROJECT_NAME}_stack
+    src/main_stack.c
 )
 
 set_target_properties(${CMAKE_PROJECT_NAME}_main PROPERTIES LINKER_LANGUAGE C)
